@@ -1507,7 +1507,7 @@ footer::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('Images/visa_bg.png');
+    background-image: url('Images/visa_bg.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -2209,7 +2209,8 @@ footer {
 
 .exclusion-title {
     font-size: 1.1rem;
-    color: #d32f2f; /* Red color for warning/exclusion */
+    color: #d32f2f;
+    /* Red color for warning/exclusion */
     margin-bottom: 0.8rem;
     font-weight: 700;
 }
@@ -2229,7 +2230,8 @@ footer {
 }
 
 .exclusion-list li::before {
-    content: "✕"; /* Cross icon */
+    content: "✕";
+    /* Cross icon */
     position: absolute;
     left: 0;
     color: #d32f2f;
