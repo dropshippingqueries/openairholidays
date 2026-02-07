@@ -42,6 +42,9 @@
             <a href="#visas">Visas</a>
             <a href="#contact">Contact</a>
         </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
     </nav>
 
     <!-- Horizontal Scroll Wrapper (Hero Only) -->
@@ -297,6 +300,34 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
             class="whatsapp-icon">
     </a>
+    <!-- Progress Bar Script -->
+    <script>
+        // --- SCROLL PROGRESS BAR ---
+        window.addEventListener('scroll', () => {
+            const progressBar = document.getElementById("myBar");
+            if (!progressBar) return;
+
+            // Use window.scrollY or documentElement.scrollTop
+            const winScroll = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+            // Calculate total scrollable height
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+            // Avoid division by zero
+            if (height <= 0) {
+                progressBar.style.width = "0%";
+                return;
+            }
+
+            let scrolled = (winScroll / height) * 100;
+
+            // Clamp between 0 and 100
+            if (scrolled < 0) scrolled = 0;
+            if (scrolled > 100) scrolled = 100;
+
+            progressBar.style.width = scrolled + "%";
+        });
+    </script>
 </body>
 
 </html>
