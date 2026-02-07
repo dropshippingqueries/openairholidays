@@ -1174,6 +1174,46 @@ body {
     color: var(--text-dark);
 }
 
+.click-indicator {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-top: -15px;
+    /* Pull it up closer */
+    border: 1px solid var(--accent-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    animation: pulseBadge 2s infinite;
+    transition: all 0.3s ease;
+}
+
+#visa-asia:hover .click-indicator {
+    background: var(--accent-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+@keyframes pulseBadge {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 111, 0, 0.4);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(255, 111, 0, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 111, 0, 0);
+    }
+}
+
 /* Modal Styles */
 .modal {
     display: none;
@@ -2240,4 +2280,66 @@ footer {
     color: #d32f2f;
     font-weight: bold;
     font-size: 1rem;
+}
+
+/* Visa Country Grid */
+.country-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.country-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Soft shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.country-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    /* Slightly deeper shadow on hover */
+    border-color: var(--primary-color);
+}
+
+.country-flag {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for flags */
+}
+
+.country-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Ensure modal handles the grid well on mobile */
+@media (max-width: 600px) {
+    .country-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 1rem;
+    }
+
+    .country-flag {
+        width: 50px;
+        height: 34px;
+    }
+
+    .country-name {
+        font-size: 0.85rem;
+    }
 }
