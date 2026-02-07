@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", (event) => {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && typeof ScrollToPlugin !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    } else {
+        console.warn("GSAP or its plugins are not loaded.");
+    }
 
     // Itinerary Data - New Format
     const itineraries = {
@@ -405,6 +409,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Function to render itinerary content
     function renderItinerary(option) {
+        if (!option || !option.itinerary) return '';
         const isNewFormat = typeof option.itinerary[0] === 'string';
 
         if (isNewFormat) {
@@ -535,64 +540,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         stagger: 0 // All start at same position
     });
     // --- VISA INTERACTION ---
-    const asianCountries = [
-        { name: "Afghanistan", code: "af" }, { name: "Armenia", code: "am" }, { name: "Azerbaijan", code: "az" },
-        { name: "Bahrain", code: "bh" }, { name: "Bhutan", code: "bt" }, { name: "Brunei", code: "bn" },
-        { name: "Cambodia", code: "kh" }, { name: "China", code: "cn" }, { name: "Cyprus", code: "cy" },
-        { name: "Georgia", code: "ge" }, { name: "Hong Kong", code: "hk" }, { name: "India", code: "in" }, { name: "Indonesia", code: "id" },
-        { name: "Iran", code: "ir" }, { name: "Iraq", code: "iq" }, { name: "Israel", code: "il" },
-        { name: "Japan", code: "jp" }, { name: "Jordan", code: "jo" }, { name: "Kazakhstan", code: "kz" },
-        { name: "Kuwait", code: "kw" }, { name: "Kyrgyzstan", code: "kg" }, { name: "Laos", code: "la" },
-        { name: "Lebanon", code: "lb" }, { name: "Macau", code: "mo" }, { name: "Malaysia", code: "my" }, { name: "Maldives", code: "mv" },
-        { name: "Mongolia", code: "mn" }, { name: "Myanmar", code: "mm" }, { name: "Nepal", code: "np" },
-        { name: "Oman", code: "om" }, { name: "Philippines", code: "ph" }, { name: "Qatar", code: "qa" },
-        { name: "Saudi Arabia", code: "sa" }, { name: "Singapore", code: "sg" }, { name: "South Korea", code: "kr" },
-        { name: "Sri Lanka", code: "lk" }, { name: "Syria", code: "sy" }, { name: "Taiwan", code: "tw" },
-        { name: "Tajikistan", code: "tj" }, { name: "Thailand", code: "th" }, { name: "Timor-Leste", code: "tl" },
-        { name: "Turkey", code: "tr" }, { name: "Turkmenistan", code: "tm" }, { name: "UAE", code: "ae" },
-        { name: "Uzbekistan", code: "uz" }, { name: "Vietnam", code: "vn" }, { name: "Yemen", code: "ye" }
-    ];
+    // Note: The Asia Visa Modal is handled by the global openAsiaModal function
+    // triggered by the onclick attribute in the HTML.
 
-    document.addEventListener("click", (e) => {
-        const visaBtn = e.target.closest("#visa-asia");
-        if (visaBtn) {
-            e.preventDefault();
-
-            // Re-fetch elements to ensure they are available
-            const modal = document.getElementById("itinerary-modal");
-            const modalTitle = document.getElementById("modal-title");
-            const modalBody = document.getElementById("modal-body");
-            const modalContent = document.querySelector('.modal-content');
-
-            if (modal && modalTitle && modalBody) {
-                modalTitle.innerHTML = `<span class="modal-destination-name">Asian Countries We Service</span>`;
-
-                const gridHtml = `
-                    <div class="country-grid">
-                        ${asianCountries.map(country => `
-                            <div class="country-card">
-                                <img src="https://flagcdn.com/w80/${country.code}.png" 
-                                     srcset="https://flagcdn.com/w160/${country.code}.png 2x" 
-                                     width="80" 
-                                     alt="${country.name} Flag" 
-                                     class="country-flag" 
-                                     loading="lazy">
-                                <span class="country-name">${country.name}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div style="text-align: center; margin-top: 2rem; color: #666; font-size: 0.9rem;">
-                        * Contact us for visa requirements for specific countries.
-                    </div>
-                `;
-
-                modalBody.innerHTML = gridHtml;
-                if (modalContent) modalContent.scrollTop = 0;
-                if (modalContent) modalContent.setAttribute('data-destination', 'visa-general');
-                modal.classList.add("show");
-            }
-        }
-    });
 
 });
 
